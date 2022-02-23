@@ -11,6 +11,9 @@ import (
 	"syscall"
 )
 
+//@todo create test files
+//@todo add test to github merge check
+
 // KeyLogger wrapper around file descriptior
 type KeyLogger struct {
 	fd *os.File
@@ -36,7 +39,7 @@ var allowedDevices = devices{"keyboard", "logitech mx keys"}
 func New(devPath string) (*KeyLogger, error) {
 	k := &KeyLogger{}
 	if !k.IsRoot() {
-		return nil, errors.New("Must be run as root")
+		return nil, errors.New("must be run as root")
 	}
 	fd, err := os.OpenFile(devPath, os.O_RDWR, os.ModeCharDevice)
 	k.fd = fd
@@ -108,6 +111,7 @@ func (k *KeyLogger) IsRoot() bool {
 // Make sure to close channel when finish
 func (k *KeyLogger) Read() chan InputEvent {
 	event := make(chan InputEvent)
+	//mod := false
 	go func(event chan InputEvent) {
 		for {
 			e, err := k.read()
@@ -117,6 +121,27 @@ func (k *KeyLogger) Read() chan InputEvent {
 			}
 
 			if e != nil {
+				if (e.Code == 42) || (e.Code == 54) {
+					modifier := e.Code
+					if e.Value == 1 {
+						for {
+							f, _ := k.read()
+							if f.Code == modifier {
+								event <- *f
+								break
+							}
+
+							if f.Value == 0 && f.Code > 0 {
+								if f.Code != e.Code {
+									f.Code = f.Code + 200
+									event <- *f
+								}
+							}
+
+						}
+					}
+				}
+
 				event <- *e
 			}
 		}
@@ -209,6 +234,7 @@ func (k *KeyLogger) syn() error {
 func (k *KeyLogger) eventFromBuffer(buffer []byte) (*InputEvent, error) {
 	event := &InputEvent{}
 	err := binary.Read(bytes.NewBuffer(buffer), binary.LittleEndian, event)
+	//str1 := bytes.NewBuffer(buffer).String()
 	return event, err
 }
 
