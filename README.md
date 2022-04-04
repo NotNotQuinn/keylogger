@@ -2,8 +2,7 @@
 
 Capture global keyboard events on Linux
 
-Forked from github.com/MarinX/keylogger
-Modified to return correct case of character and other characters accessed by holding down modifier keys such as SHIFT
+Forked from https://github.com/Acetolyne/keylogger (which is forked from https://github.com/MarinX/keylogger)
 
 ## Notes
 * Only Linux based
