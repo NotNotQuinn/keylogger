@@ -56,7 +56,7 @@ type InputEvents struct {
 // KeyString returns representation of pressed key as string
 // eg enter, space, a, b, c...
 func (i *InputEvent) KeyString() string {
-	return KeyCodeMap[i.Code]
+	return keyCodeMap[i.Code]
 }
 
 // KeyPress is the value when we press the key on keyboard
