@@ -156,7 +156,7 @@ func (k *KeyLogger) Read() chan InputEvent {
 func (k *KeyLogger) Write(direction KeyEvent, key string) error {
 	key = strings.ToUpper(key)
 	code := uint16(0)
-	for c, k := range keyCodeMap {
+	for c, k := range KeyCodeMap {
 		if k == key {
 			code = c
 		}
@@ -180,7 +180,7 @@ func (k *KeyLogger) Write(direction KeyEvent, key string) error {
 func (k *KeyLogger) WriteOnce(key string) error {
 	key = strings.ToUpper(key)
 	code := uint16(0)
-	for c, k := range keyCodeMap {
+	for c, k := range KeyCodeMap {
 		if k == key {
 			code = c
 		}
