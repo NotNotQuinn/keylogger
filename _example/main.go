@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Acetolyne/keylogger"
+	"github.com/NotNotQuinn/keylogger"
 )
 
 //@todo update this file to give better examples, these examples came from the forked repository

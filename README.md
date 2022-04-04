@@ -10,7 +10,7 @@ Forked from https://github.com/Acetolyne/keylogger (which is forked from https:/
 
 ## Installation
 ```sh
-go get github.com/Acetolyne/keylogger
+go get github.com/NotNotQuinn/keylogger
 ```
 
 ## Getting started
@@ -35,7 +35,7 @@ keylogger.New("/dev/input/event2")
 ```
 
 ### Getting keypress
-Once the keylogger returns channel event, you can switch by event code as described in [input_event.go](https://github.com/Acetolyne/keylogger/blob/master/input_event.go)
+Once the keylogger returns channel event, you can switch by event code as described in [input_event.go](https://github.com/NotNotQuinn/keylogger/blob/master/input_event.go)
 For start, you can listen on keyboard state change 
 ```go
 keylogger.EvKey
